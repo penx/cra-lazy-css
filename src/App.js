@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import './App.css';
+import { Component1 } from './some-components';
 
 const LazySection = React.lazy(() => import('./lazy'));
 
@@ -16,10 +17,11 @@ class App extends Component {
 
     return (
       <div className="App">
-      <button onClick={this.handleClick}>Load subsection</button>
-      {showSubSection && <Suspense fallback={<div>Loading...</div>}>
-        <LazySection />
-      </Suspense>}
+        <Component1 />
+        <button onClick={this.handleClick}>Load subsection</button>
+        {showSubSection && <Suspense fallback={<div>Loading...</div>}>
+          <LazySection />
+        </Suspense>}
       </div>
     );
   }
