@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component, Suspense } from 'react';
 import './App.css';
 
+const LazySection = React.lazy(() => import('./lazy'));
+
 class App extends Component {
+  state = {
+    showSubSection: false
+  }
+
+  handleClick = () => {
+    this.setState({showSubSection: true});
+  }
   render() {
+    const { showSubSection } = this.state;
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <button onClick={this.handleClick}>Load subsection</button>
+      {showSubSection && <Suspense fallback={<div>Loading...</div>}>
+        <LazySection />
+      </Suspense>}
       </div>
     );
   }
